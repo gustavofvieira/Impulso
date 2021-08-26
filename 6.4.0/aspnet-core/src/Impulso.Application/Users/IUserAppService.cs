@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Impulso.Authorization.Users;
 using Impulso.Roles.Dto;
 using Impulso.Users.Dto;
 
@@ -15,5 +16,11 @@ namespace Impulso.Users
         Task ChangeLanguage(ChangeUserLanguageDto input);
 
         Task<bool> ChangePassword(ChangePasswordDto input);
+
+        Task<bool> ResetPassword(ResetPasswordDto input);
+        Task<UserDto> UpdateAsync(UserDto input);
+
+        
+      
     }
 }

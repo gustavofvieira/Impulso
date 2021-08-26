@@ -77,5 +77,70 @@ namespace Impulso.Tests.Users
             Assert.Equal(userDto.EmailAddress, "joao.natal@volosoft.com");
             Assert.Equal(userDto.UserName, "joao.natal");
         }
+
+        [Fact]
+        public async Task ChangePassword_Test()
+        {
+            //Act
+
+          var pwChanged =  await _userAppService.ChangePassword(
+               new ChangePasswordDto
+               {
+                   CurrentPassword = "123qwe",
+                   NewPassword = "qwe123",
+
+               });
+            //Assert
+            Assert.Equal(pwChanged,true);
+
+
+        }
+
+
+
+
+        [Fact]
+        public async Task GetRoles_Test()
+        {
+            //Act
+            var roles = await _userAppService.GetRoles();
+
+            //Assert
+            Assert.NotNull(roles);
+
+        }
+
+      
+        [Fact]
+        public async Task ResetPassword_Test()
+        {
+            //Act
+                var pwReset = await _userAppService.ResetPassword(new ResetPasswordDto
+                {
+                    AdminPassword = "123qwe",
+                    UserId = 2,
+                    NewPassword = "qwe123",
+
+                });
+
+            //Assert
+            Assert.Equal(pwReset,true);
+        }
+
+        [Fact]
+        public async Task ChangeLanguage_Test()
+        {
+            var langChanged = _userAppService.ChangeLanguage(
+                    new ChangeUserLanguageDto
+                    {
+                        LanguageName = "pt-BR"
+                    }
+                );
+            //Assert
+            Assert.NotNull(langChanged);
+            Assert.Equal(langChanged.Status, TaskStatus.RanToCompletion);
+        }
+
+
     }
 }
