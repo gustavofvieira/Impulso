@@ -52,11 +52,30 @@ namespace Impulso.Tests.Users
         [Fact]
         public async Task UpdateUser_Test()
         {
-            // Act
-            var output = await _userAppService.GetAllAsync(new PagedUserResultRequestDto { MaxResultCount = 20, SkipCount = 0 });
+            // Arrange
+            var userDto = await _userAppService.GetUserByIdDto(3);
 
+            if (userDto is null) CreateUser_Test();
+           
+            //Act
+
+            await _userAppService.UpdateAsync(
+               new UserDto
+               {
+                   Id = 3,
+                   EmailAddress = "joao.natal@volosoft.com",
+                   IsActive = true,
+                   Name = "João",
+                   Surname = "Natal",
+                   UserName = "joao.natal"
+               });
+
+
+            userDto = await _userAppService.GetUserByIdDto(3);
             // Assert
-            output.Items.Count.ShouldBeGreaterThan(0);
+            Assert.Equal(userDto.Id,3);
+            Assert.Equal(userDto.EmailAddress, "joao.natal@volosoft.com");
+            Assert.Equal(userDto.UserName, "joao.natal");
         }
     }
 }

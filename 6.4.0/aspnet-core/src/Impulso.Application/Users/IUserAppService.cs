@@ -8,6 +8,7 @@ namespace Impulso.Users
 {
     public interface IUserAppService : IAsyncCrudAppService<UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>
     {
+        Task<UserDto> GetUserByIdDto(int id);
         Task DeActivate(EntityDto<long> user);
         Task Activate(EntityDto<long> user);
         Task<ListResultDto<RoleDto>> GetRoles();

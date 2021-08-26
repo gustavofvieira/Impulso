@@ -53,6 +53,29 @@ namespace Impulso.Users
             _logInManager = logInManager;
         }
 
+        public async Task<UserDto> GetUserByIdDto(int id)
+        {
+            CheckUpdatePermission();
+            try
+            {
+                var user = await _userManager.GetUserByIdAsync(id);
+                var userDto = new UserDto()
+                {
+                    Id = user.Id,
+                    EmailAddress = user.EmailAddress,
+                    UserName = user.UserName
+                };
+
+                return userDto;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+
+            
+        }
+
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
         {
             CheckCreatePermission();
@@ -246,6 +269,8 @@ namespace Impulso.Users
 
             return true;
         }
+
+      
     }
 }
 
